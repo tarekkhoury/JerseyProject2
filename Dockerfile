@@ -1,3 +1,22 @@
+
+# GlassFish on Docker
+FROM glassfish/openjdk
+
+# Maintainer
+MAINTAINER TK <tarekkhoury78@gmail.com>
+
+# Set environment variables and default password for user 'admin'
+ENV GLASSFISH_PKG=glassfish-4.1.zip \
+    GLASSFISH_URL=http://download.java.net/glassfish/4.1/release/glassfish-4.1.zip \
+    GLASSFISH_HOME=/glassfish4 \
+    PATH=$PATH:/glassfish4/bin \
+    PASSWORD=glassfish
+
+ENV MAVEN_URL=http://apache.mirror.digitalpacific.com.au/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz \
+    MAVEN_PKG=apache-maven-3.3.9-bin.tar.gz  \
+    MAVEN_HOME=/apache-maven-3.3.9  \
+    PATH=$PATH:/apache-maven-3.3.9/bin
+
 # Install packages, download and extract GlassFish
 # Setup password file
 # Enable DAS
