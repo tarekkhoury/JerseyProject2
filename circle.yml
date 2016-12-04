@@ -16,9 +16,7 @@ deployment:
   hub:
     branch: [master]
     commands:
-       - echo "----------------------before pull"
-      - docker pull jerseyservices2_jerseyservices2:latest
-      - echo "----------------------after pull"
+  
       - echo "----------------------before login"
       - echo $DOCKER_HUB_EMAIL  $DOCKER_HUB_USER_ID  $DOCKER_HUB_PWD
       - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
