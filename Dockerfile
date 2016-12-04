@@ -1,21 +1,17 @@
-# GlassFish on Docker
-FROM glassfish/openjdk
-
-# Maintainer
-MAINTAINER TK <tarekkhoury78@gmail.com>
-
-# Set environment variables and default password for user 'admin'
-ENV GLASSFISH_PKG=glassfish-4.1.zip \
-    GLASSFISH_URL=http://download.java.net/glassfish/4.1/release/glassfish-4.1.zip \
-    GLASSFISH_HOME=/glassfish4 \
-    PATH=$PATH:/glassfish4/bin \
-    PASSWORD=glassfish
-
 # Install packages, download and extract GlassFish
 # Setup password file
 # Enable DAS
-RUN apk add --update wget unzip && \
-    wget --no-check-certificate $GLASSFISH_URL && \
+RUN apk add --update wget unzip git
+
+RUN wget $MAVEN_URL && \
+   tar -xzvf $MAVEN_PKG && \
+    rm -f  $MAVEN_PKG  &&\
+    echo "--- Setup maven completee ---" && \
+    echo "--- mvn -v ---" && \
+     mvn -v
+
+
+RUN    wget --no-check-certificate $GLASSFISH_URL && \
     unzip -o $GLASSFISH_PKG && \
     rm -f $GLASSFISH_PKG && \
     apk del wget unzip && \
@@ -27,11 +23,23 @@ RUN apk add --update wget unzip && \
     asadmin start-domain && \
     echo "AS_ADMIN_PASSWORD=${PASSWORD}" > /tmp/glassfishpwd && \
     asadmin --user=admin --passwordfile=/tmp/glassfishpwd enable-secure-admin && \
+    git clone https://github.com/tarekkhoury/JerseyServices2.git /app/ && \
+    cd /app && mvn clean install -Dmaven.test.skip=true && \
+    asadmin --user=admin --passwordfile=/tmp/glassfishpwd deploy /app/target/JerseyServices2.war && \
     asadmin --user=admin stop-domain && \
     rm /tmp/glassfishpwd
+
+
+
+# Install software
+#RUN git clone https://github.com/tarekkhoury/JerseyServices2.git /app/
+#RUN cd /app && mvn clean install
 
 # Ports being exposed
 EXPOSE 4848 8080 8181
 
+
 # Start asadmin console and the domain
-CMD ["asadmin", "start-domain", "-v"ENTRYPOINT ["/start.sh"]
+CMD ["asadmin", "start-domain", "-v"]
+
+
