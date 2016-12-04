@@ -1,6 +1,6 @@
 version: '2'
 services:
-  glassfishjersey:
+  jerseyservices2:
     build: .
     ports:
       - "8080:8080"
