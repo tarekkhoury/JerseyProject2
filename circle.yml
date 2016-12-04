@@ -14,8 +14,15 @@ test:
 
 deployment:
   hub:
-    branch: /.*/
+    branch: [master]
     commands:
+      - echo "----------------------before login"
+      - echo $DOCKER_HUB_EMAIL  $DOCKER_HUB_USER_ID  $DOCKER_HUB_PWD
       - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
+      - echo "----------------------after login"
+      - echo "----------------------before docker tag"
       - docker tag jerseyservices2_glassfishjersey  $DOCKER_HUB_USER_ID/jerseyservices2glassfish:latest
+      - echo "----------------------after docker tag"
+      - echo "----------------------before docker push"
       - docker push $DOCKER_HUB_USER_ID/jerseyservices2glassfish:latest
+      - echo "----------------------after docker push"
