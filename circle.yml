@@ -21,9 +21,11 @@ deployment:
       - echo $DOCKER_HUB_EMAIL  $DOCKER_HUB_USER_ID  $DOCKER_HUB_PWD
       - docker login -e $DOCKER_HUB_EMAIL -u $DOCKER_HUB_USER_ID -p $DOCKER_HUB_PWD
       - echo "----------------------after login"
+      
       - echo "----------------------before docker tag"
-      - docker tag tarekkhoury/jerseyservices2 $DOCKER_HUB_USER_ID/jerseyservices2:latest
+      - docker tag jerseyservices2_jerseyservices2 $DOCKER_HUB_USER_ID/jerseyservices2:latest
       - echo "----------------------after docker tag"
+ 
       - echo "----------------------before docker push"
       - docker push $DOCKER_HUB_USER_ID/jerseyservices2:latest
       - echo "----------------------after docker push"
