@@ -1,6 +1,6 @@
-version: '1'
+version: '2'
 services:
-  dockerapp:
+  dockerglassfish:
     build: .
     ports:
       - "8080:8080"
