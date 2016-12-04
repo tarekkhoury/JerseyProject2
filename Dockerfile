@@ -43,7 +43,7 @@ RUN    wget --no-check-certificate $GLASSFISH_URL && \
     echo "AS_ADMIN_PASSWORD=${PASSWORD}" > /tmp/glassfishpwd && \
     asadmin --user=admin --passwordfile=/tmp/glassfishpwd enable-secure-admin && \
     git clone https://github.com/tarekkhoury/JerseyServices2.git /app/ && \
-    cd /app && mvn clean install -Dmaven.test.skip=true && \
+    cd /app && mvn clean install && \
     asadmin --user=admin --passwordfile=/tmp/glassfishpwd deploy /app/target/JerseyServices2.war && \
     #asadmin --user=admin stop-domain && \
     rm /tmp/glassfishpwd
